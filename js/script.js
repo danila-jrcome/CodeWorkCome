@@ -1,47 +1,59 @@
-// Функция для загрузки данных из JSON
-async function loadBlogs() {
-    try {
-        // Загружаем JSON файл
-        const response = await fetch('data/blogs.json');
-        
-        // Проверяем, успешно ли загрузился файл
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки: ' + response.status);
-        }
-        
-        // Преобразуем ответ в JavaScript объект
-        const data = await response.json();
-
-        // Отображаем блоги
-        displayBlogs(data.blogs);
-        
-    } catch (error) {
-        // Если ошибка - показываем сообщение
-        console.error('Ошибка:', error);
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').style.display = 'flex';
+// Простой SPA роутер для блогов
+class BlogRouter {
+    constructor() {
+        this.blogs = [];
+        this.content = document.getElementById('content');
+        this.handleRoute = this.handleRoute.bind(this);
+        this.navigate = this.navigate.bind(this);
+        window.addEventListener('hashchange', () => this.handleRoute());
+        this.init();
     }
-}
 
-// Функция для отображения блогов
-function displayBlogs(blogs) {
-    const grid = document.getElementById('blogGrid');
-    
-    // Проходим по каждому блогу и создаем HTML
-    const blogsHTML = blogs.map(blog => {
-        // Создаем теги
-        const tagsHTML = blog.tags.map(tag => 
-            `<span class="tag">${tag}</span>`
-        ).join('');
+    async init() {
+        await this.loadBlogs();  // Вызов метода
+        this.handleRoute();      // Отображаем текущий маршрут
+    }
+
+    async loadBlogs() {
+        try {
+            const response = await fetch('data/blogs.json');
+            const data = await response.json();
+            this.blogs = data.blogs;
+            console.log('✅ Блоги загружены:', this.blogs);
+        } catch (error) {
+            console.error('❌ Ошибка загрузки блогов:', error);
+            this.blogs = [];
+        }
+    }
+
+    handleRoute() {
+        // Получаем путь из хэша (убираем #)
+        const hash = window.location.hash.slice(1) || '/';
+        console.log('Текущий путь:', hash);
         
-        // Форматируем дату
-        const date = new Date(blog.date).toLocaleDateString('ru-RU', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-        
-        return `
+        if (hash === '/') {
+            this.renderMainPage();
+        } else if (hash.startsWith('/blog/')) {
+            const id = parseInt(hash.split('/').pop());
+            this.renderBlogPage(id);
+        } else {
+            this.renderNotFound();
+        }
+    }
+
+    navigate(path) {
+        window.location.hash = path;
+    }
+
+    renderMainPage() {
+        const blogsHTML = this.blogs.map(blog => {
+            const date = new Date(blog.date).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            return `
             <article class="blog-card">
                 <div class="blog-card__image">
                     <img src="${blog.imagePreview}" alt="${blog.title}" class="blog-image">
@@ -56,18 +68,60 @@ function displayBlogs(blogs) {
                             <i class="far fa-clock"></i> ${date}
                         </span>
                     </div>
-                    <a href="${blog.slug}.html" class="blog-card__button" target="_blank">
+                    <a class="blog-card__button" style="cursor: pointer" target="_blank" onclick="router.navigate('/blog/${blog.id}')">
                         Читать
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </article>
+        `}).join('');
+
+        this.content.innerHTML = `
+            <div class="container">
+                <!-- Титульник -->
+                <div class="section-header">
+                    <h1 class="section-title">Блоги</h1>
+                </div>
+
+                <!-- Контент -->
+                <div class="blog-grid"> ${blogsHTML} </div>
+            </div>
         `;
-    }).join('');
-    
-    // Вставляем все карточки в сетку
-    grid.innerHTML = blogsHTML;
+    }
+
+    renderBlogPage(id) {
+        const blog = this.blogs.find(b => b.id === id);
+        
+        if (!blog) {
+            this.renderNotFound();
+            return;
+        }
+
+        this.content.innerHTML = `
+            <div class="blog-page">
+                <button class="back-button" onclick="router.navigate('/')">← Назад к списку</button>
+                <div class="blog-header">
+                    <h1>${blog.title}</h1>
+                    <div class="blog-meta">
+                        <span>📅 Дата: ${blog.date}</span>
+                    </div>
+                </div>
+                <div class="blog-content">
+                    ${blog.content}
+                </div>
+            </div>
+        `;
+    }
+
+    renderNotFound() {
+        this.content.innerHTML = `
+            <div class="not-found">
+                <h2>404</h2>
+                <p>Страница не найдена</p>
+                <button class="back-button" onclick="router.navigate('/')">Вернуться на главную</button>
+            </div>
+        `;
+    }
 }
 
-// Загружаем данные после полной загрузки страницы
-document.addEventListener('DOMContentLoaded', loadBlogs);
+const router = new BlogRouter();

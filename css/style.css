@@ -1,4 +1,5 @@
 :root {
+    /* Colors */
     --background: #2C2C2C;
     --primary: #355872;
     --second: #7acece;
@@ -7,6 +8,10 @@
     --main-text: #F3F4F4;
 
     --card-bg: #1d1d1d;
+}
+
+html {
+    overflow-y: scroll;
 }
 
 /* Обнуление отступов */
@@ -22,6 +27,9 @@ a {
 
 body {
     background: var(--background); 
+    background-image: url('../images-system/gamemaker-logo.svg');
+    background-repeat: repeat;
+    background-size: 90px 90px;
 
     font-family: 'Nunito', sans-serif;
     color: var(--main-text);
@@ -71,11 +79,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    background-image: url('../images-system/gamemaker-logo.svg');
-    background-repeat: repeat;
-    background-size: 90px 90px;
-    filter: brightness(0.8);
 }
 
 .container {
@@ -109,6 +112,7 @@ main {
 
 .section-title {
     margin: 24px;
+    text-shadow: 3px 3px var(--primary), 3px 3px 10px black;
 }
 
 /* Blog Card */
