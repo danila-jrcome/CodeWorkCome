@@ -44,7 +44,7 @@ function displayBlogs(blogs) {
         return `
             <article class="blog-card">
                 <div class="blog-card__image">
-                    <img src="${blog.image}" alt="${blog.title}" class="blog-image">
+                    <img src="${blog.imagePreview}" alt="${blog.title}" class="blog-image">
                 </div>
                 <div class="blog-card__content">
                     <h2 class="blog-card__title">${blog.title}</h2>
