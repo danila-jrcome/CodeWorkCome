@@ -6,6 +6,7 @@ class BlogRouter {
         this.handleRoute = this.handleRoute.bind(this);
         this.navigate = this.navigate.bind(this);
         window.addEventListener('hashchange', () => this.handleRoute());
+        this.isTransitioning = false;
         this.init();
     }
 
@@ -31,15 +32,44 @@ class BlogRouter {
         const hash = window.location.hash.slice(1) || '/';
         console.log('Текущий путь:', hash);
         
-        if (hash === '/') {
-            this.renderMainPage();
-        } else if (hash.startsWith('/blog/')) {
-            const id = parseInt(hash.split('/').pop());
-            this.renderBlogPage(id);
-        } else {
-            this.renderNotFound();
-        }
+        this.transitionTo(() => {
+            if (hash === '/') {
+                this.renderMainPage();
+            } else if (hash.startsWith('/blog/')) {
+                const id = parseInt(hash.split('/').pop());
+                this.renderBlogPage(id);
+            } else {
+                this.renderNotFound();
+            }
+        });
     }
+
+    async transitionTo(callback) {
+    // Если уже идет переход - выходим
+    if (this.isTransitioning) return;
+    
+    // Ставим флаг
+    this.isTransitioning = true;
+    
+    // Добавляем класс для исчезновения
+    this.content.classList.add('fade-out');
+    
+    // Ждем 150мс (время анимации исчезновения)
+    await new Promise(resolve => setTimeout(resolve, 150));
+    
+    // Выполняем рендеринг (то, что пришло в callback)
+    callback();
+    
+    // ХИТРЫЙ МОМЕНТ: два requestAnimationFrame чтобы дать браузеру время
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            // Убираем класс исчезновения - элемент появляется
+            this.content.classList.remove('fade-out');
+            // Снимаем флаг
+            this.isTransitioning = false;
+        });
+    });
+}
 
     navigate(path) {
         window.location.hash = path;
@@ -68,7 +98,7 @@ class BlogRouter {
                             <i class="far fa-clock"></i> ${date}
                         </span>
                     </div>
-                    <a class="blog-card__button" style="cursor: pointer" target="_blank" onclick="router.navigate('/blog/${blog.id}')">
+                    <a class="blog-card__button" target="_blank" onclick="router.navigate('/blog/${blog.id}')">
                         Читать
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -97,17 +127,29 @@ class BlogRouter {
             return;
         }
 
+    const date = new Date(blog.date).toLocaleDateString('ru-RU', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
         this.content.innerHTML = `
-            <div class="blog-page">
-                <button class="back-button" onclick="router.navigate('/')">← Назад к списку</button>
-                <div class="blog-header">
-                    <h1>${blog.title}</h1>
+            <div class="container-blog">
+                <div class="container-upper">
+                    <button class="back-button" onclick="router.navigate('/')">← Назад к списку</button>
                     <div class="blog-meta">
-                        <span>📅 Дата: ${blog.date}</span>
+                        <span>📅 ${date}</span>
                     </div>
                 </div>
-                <div class="blog-content">
-                    ${blog.content}
+
+                <div class="blog-page" style="animation: fadeInUp 0.1s ease-out">
+                    <div class="blog-header">
+                        <img src="${blog.imagePreview}" alt="images-system/gamemaker-logo.svg">
+                        <h1>${blog.title}</h1>
+                    </div>
+                    <div class="blog-content">
+                        ${blog.content}
+                    </div>
                 </div>
             </div>
         `;

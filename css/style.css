@@ -46,8 +46,8 @@ h1 {
 header {
     display: flex;
     justify-content: center;
-    white-space: nowrap;  /* Запрещает перенос текста */
-    flex-wrap: wrap;  /* Элементы переносятся */
+    white-space: nowrap;
+    flex-wrap: wrap;
 
     padding: 18px;
     gap: 12px;
@@ -161,12 +161,15 @@ main {
 }
 
 .blog-card__button {
+    border: 0;
     padding: 8px 24px;
     border-radius: 8px;
 
+    font-weight:bold;
+    cursor: pointer;
+
     background-color: var(--primary);
     color: var(--main-text);
-    font-weight:bold;
 
     transition: background-color 0.15s, color 0.15s;
 
