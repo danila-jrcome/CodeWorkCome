@@ -1,0 +1,196 @@
+:root {
+    --background: #2C2C2C;
+    --primary: #355872;
+    --second: #7acece;
+    --shadow: #1f0942;
+
+    --main-text: #F3F4F4;
+
+    --card-bg: #1d1d1d;
+}
+
+/* Обнуление отступов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background: var(--background); 
+
+    font-family: 'Nunito', sans-serif;
+    color: var(--main-text);
+}
+
+h1 {
+    color: var(--main-text);
+    text-align: center;
+}
+
+
+
+/* Header */
+header {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;  /* Запрещает перенос текста */
+    flex-wrap: wrap;  /* Элементы переносятся */
+
+    padding: 18px;
+    gap: 12px;
+    column-gap: 32px;
+    background-color: var(--card-bg);
+}
+
+header h1{
+    color: var(--main-text);
+}
+
+/* Header Description */
+.head-desc {
+    min-width: fit-content;
+    max-width: 80%;
+    padding: 4px 20px;
+    border-radius: 30px;
+    background: linear-gradient(to right, var(--primary), #338f8f);
+    box-shadow: 0 8px 8px rgba(0,0,0,0.1);
+    
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+
+/* Blog Section */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-image: url('../images-system/gamemaker-logo.svg');
+    background-repeat: repeat;
+    background-size: 90px 90px;
+    filter: brightness(0.8);
+}
+
+.container {
+    min-width: 70%;
+    margin-bottom: 80px;
+}
+
+.blog-grid {
+    display: grid;
+    gap: 30px;
+    margin: 15px;
+}
+
+@media (min-width: 0px) {
+    .blog-grid {
+        grid-template-columns: repeat(1, minmax(200px, 500px));
+    }
+}
+@media (min-width: 850px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, minmax(400px, 500px));
+    }
+}
+@media (min-width: 1400px) {
+    .blog-grid {
+        grid-template-columns: repeat(3, minmax(400px, 400px));
+        justify-content: center;  /* Центрируем, если осталось место */
+    }
+}
+
+
+.section-title {
+    margin: 24px;
+}
+
+/* Blog Card */
+.blog-card {
+    border-radius: 10px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+
+    background-color: var(--card-bg);
+    border: 1px solid #505050;
+    box-shadow: 0 3px 5px 0 var(--card-bg);
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 2px 10px 0 var(--card-bg), 
+        0 15px 0 0 var(--second);
+}
+
+
+.blog-card__title {
+    text-align: center;
+} 
+
+
+.blog-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-card__additional {
+    border-top: 1px solid var(--border);
+    margin-top: auto;  /* Прижимает футер к низу */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--second);
+}
+
+.blog-card__button {
+    padding: 8px 24px;
+    border-radius: 8px;
+
+    background-color: var(--primary);
+    color: var(--main-text);
+    font-weight:bold;
+
+    transition: background-color 0.15s, color 0.15s;
+
+    box-shadow: 0 1px 3px inset var(--second), 0 -2px 4px inset var(--shadow);
+}
+
+.blog-card__button:hover{
+    background-color: var(--second);
+    color: var(--card-bg);
+}
+
+.blog-card__image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+
+    display: flex;
+    justify-content:center;
+}
+
+.blog-image {
+    width: 100%;
+    height: 100%;
+    /* object-fit:scale-down; */
+    object-fit:cover;
+    
+    
+    border-radius: 16px;
+    border: 1px solid #505050;
+}

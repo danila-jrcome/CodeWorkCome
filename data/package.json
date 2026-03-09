@@ -1,0 +1,13 @@
+{
+  "name": "my-blogs-site",
+  "version": "1.0.0",
+  "description": "Сайт с блогами для программистов",
+  "scripts": {
+    "generate": "node generate-pages.js",
+    "dev": "npm run generate && live-server",
+    "build": "npm run generate"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
+}

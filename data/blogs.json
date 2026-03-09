@@ -1,0 +1,52 @@
+{
+  "blogs": [
+    {
+      "id": 1,
+      "title": "GameMaker Studio 2<br>для начинающих",
+      "description": "Поэтапно ознакомимся с движком, разберёмся в интерфейсе, сделаем демо игру при помощи кода",
+      "icon": "fab fa-python",
+      "tags": ["Python", "Django", "Backend", "API"],
+      "image": "images/СистемаМеню_часть3_1.png",
+      "slug": "gamemaker-for-begginer",
+      "date": "2026-03-15",
+      "readTime": "5 мин",
+      "complexity": 0
+    },
+    {
+      "id": 2,
+      "title": "Как создать любое меню",
+      "description": "Сделаем систему меню при помощи Array.<br>Такое меню будет легко изменять и расширять.",
+      "icon": "fab fa-js",
+      "tags": ["JavaScript", "React", "Node.js", "TypeScript"],
+      "image": "images/СистемаМеню_часть1.png",
+      "slug": "https://example.com/js-blog",
+      "date": "2026-03-10",
+      "readTime": "7 мин",
+      "complexity": 0
+    },
+    {
+      "id": 3,
+      "title": "DevOps практики",
+      "description": "Docker, Kubernetes, CI/CD, облачные технологии. Как построить современную инфраструктуру.",
+      "icon": "fas fa-cloud",
+      "tags": ["DevOps", "Docker", "Kubernetes", "AWS"],
+      "image": "images/СистемаМеню_часть3_1.png",
+      "slug": "https://example.com/devops-blog",
+      "date": "2026-03-05",
+      "readTime": "6 мин",
+      "complexity": 0
+    },
+    {
+      "id": 4,
+      "title": "Алгоритмы и структуры данных",
+      "description": "Разбор задач, LeetCode, интервью, сложные алгоритмы. Подготовка к собеседованиям.",
+      "icon": "fas fa-code-branch",
+      "tags": ["Алгоритмы", "LeetCode", "BigO", "Собеседование"],
+      "image": "images/СистемаМеню_часть3_1.png",
+      "slug": "https://example.com/algo-blog",
+      "date": "2026-03-01",
+      "readTime": "8 мин",
+      "complexity": 0
+    }
+  ]
+}
