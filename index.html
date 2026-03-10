@@ -5,13 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeWorkCome</title>
 
+    <!-- Определение базового пути + Подключение стилей CSS -->
+    <script>
+        (function() {
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            // const isLocalServer = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+            console.log('🌍 Окружение:', isGitHubPages ? 'GitHub Pages' : 'Local Server');
+            
+
+            let basePath = '';
+            if (isGitHubPages)  { basePath = '/CodeWorkCome'; } 
+            else                { basePath = '';}
+            window.APP_BASE_PATH = basePath; // Сохраняем в глобальную переменную для script.js
+            console.log('📁 Базовый путь:', `"${basePath}"`);
+            
+            
+            // Подключаем CSS с правильным путем
+            const cssFiles = ['style.css', 'blog-page.css'];
+            cssFiles.forEach(file => 
+            {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = basePath + '/css/' + file;
+                document.head.appendChild(link);
+                console.log('✅ Подключен CSS:', basePath + '/css/' + file);
+            });
+        })();
+    </script>
     
     <!-- Подключение шрифтов -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-
-    <!-- Подключение сторонних файлов -->
-    <link rel="stylesheet" href="/CodeWorkCome/css/style.css">
-    <link rel="stylesheet" href="/CodeWorkCome/css/blog-page.css">
 </head>
 <body>
     <!-- Шапка -->
@@ -26,7 +49,9 @@
     <main id="content"><!-- JS скрипт --></main>
 
 
-    <!-- Подключение скрипта -->
-    <script src="/CodeWorkCome/js/script.js"></script>
+    <!-- Подключение скрипта JS -->
+    <script>
+        document.write(`<script src="${window.APP_BASE_PATH}/js/script.js"><\/script>`)
+    </script>
 </body>
 </html>

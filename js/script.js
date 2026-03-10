@@ -1,55 +1,39 @@
-const getBasePath = () => {
-    if (window.location.pathname.includes('/CodeWorkCome/')) {
-        return '/CodeWorkCome';
-    }
-    return '';
-};
+// Базовый путь
+const BASE_PATH = window.APP_BASE_PATH || ''; 
 
-const BASE_PATH = getBasePath();
-console.log('✅ Базовый путь:', BASE_PATH || 'Корень сайта');
-
-
-// Простой SPA роутер для блогов
+// SPA роутер
 class BlogRouter {
     constructor() {
         this.blogs = [];
         this.content = document.getElementById('content');
         this.handleRoute = this.handleRoute.bind(this);
         this.navigate = this.navigate.bind(this);
+    
+        this.basePath = BASE_PATH;
+
         window.addEventListener('hashchange', () => this.handleRoute());
         this.isTransitioning = false;
         this.init();
     }
 
     async init() {
-        await this.loadBlogs();  // Вызов метода
-        this.handleRoute();      // Отображаем текущий маршрут
+        await this.loadBlogs(); 
+        this.handleRoute();     
     }
 
     async loadBlogs() {
         try {
-            // НОВОЕ: правильно формируем путь к JSON
             let jsonPath;
+            jsonPath = `${BASE_PATH}/data/blogs.json`;
+
+            console.log('📥 Загрузка JSON по пути:', jsonPath);
             
-            if (BASE_PATH) {
-                // Если мы в подпапке CodeWorkCome
-                jsonPath = `${BASE_PATH}/data/blogs.json`;
-            } else {
-                // Если в корне
-                jsonPath = 'data/blogs.json';
-            }
-            
-            console.log('📥 Загрузка JSON по пути:', jsonPath); // НОВОЕ: отладка
-            
+
             const response = await fetch(jsonPath);
-            
-            // НОВОЕ: проверка статуса ответа
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
             
             const data = await response.json();
-            console.log('✅ JSON загружен, блогов:', data.blogs.length); // НОВОЕ: отладка
+            console.log('✅ JSON загружен, блогов:', data.blogs.length);
             
             this.blogs = data.blogs;
             this.handleRoute();
@@ -57,7 +41,6 @@ class BlogRouter {
         } catch (error) {
             console.error('❌ Ошибка загрузки JSON:', error);
             
-            // НОВОЕ: альтернативный путь на случай ошибки
             try {
                 console.log('🔄 Пробуем альтернативный путь...');
                 const response = await fetch('/CodeWorkCome/data/blogs.json');
@@ -66,59 +49,76 @@ class BlogRouter {
                 this.handleRoute();
             } catch (e) {
                 console.error('❌ Альтернативный путь тоже не работает:', e);
-                this.showError(); // НОВОЕ: показываем ошибку пользователю
             }
         }
     }
 
     handleRoute() {
-        // Получаем путь из хэша (убираем #)
         const hash = window.location.hash.slice(1) || '/';
         console.log('Текущий путь:', hash);
         
-        this.transitionTo(() => {
-            if (hash === '/') {
-                this.renderMainPage();
-            } else if (hash.startsWith('/blog/')) {
-                const id = parseInt(hash.split('/').pop());
-                this.renderBlogPage(id);
-            } else {
-                this.renderNotFound();
-            }
-        });
+        this.navigateToPage(hash);
     }
 
-    async transitionTo(callback) {
-    // Если уже идет переход - выходим
-    if (this.isTransitioning) return;
-    
-    // Ставим флаг
-    this.isTransitioning = true;
-    
-    // Добавляем класс для исчезновения
-    this.content.classList.add('fade-out');
-    
-    // Ждем 150мс (время анимации исчезновения)
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
-    // Выполняем рендеринг (то, что пришло в callback)
-    callback();
-    
-    // ХИТРЫЙ МОМЕНТ: два requestAnimationFrame чтобы дать браузеру время
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            // Убираем класс исчезновения - элемент появляется
-            this.content.classList.remove('fade-out');
-            // Снимаем флаг
-            this.isTransitioning = false;
+    async navigateToPage(hash) {
+        // Если уже идет переход - отменяем
+        if (this.isTransitioning) {
+            // Можно добавить отмену предыдущего перехода
+            if (this.transitionTimeout) {
+                clearTimeout(this.transitionTimeout);
+            }
+        }
+        
+        this.isTransitioning = true;
+        
+        // 1. Скрываем текущий контент
+        this.content.style.opacity = '0';
+        this.content.style.transform = 'translateY(10px)';
+        this.content.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+        
+        // 2. Ждем завершения анимации скрытия
+        await new Promise(resolve => {
+            this.transitionTimeout = setTimeout(resolve, 150);
         });
-    });
-}
+        
+        // 3. Рендерим новый контент (он будет невидимым)
+        if (hash === '/') {
+            this.renderMainPage();
+        } else if (hash.startsWith('/blog/')) {
+            const id = parseInt(hash.split('/').pop());
+            this.renderBlogPage(id);
+        } else {
+            this.renderNotFound();
+        }
+        
+        // 4. Прокручиваем страницу вверх (пока контент невидим)
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // 5. Даем время на прокрутку
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // 6. Плавно показываем новый контент
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                this.content.style.opacity = '1';
+                this.content.style.transform = 'translateY(0)';
+                
+                // Сбрасываем флаги
+                this.isTransitioning = false;
+                this.transitionTimeout = null;
+            });
+        });
+    }
 
     navigate(path) {
         window.location.hash = path;
     }
 
+
+    // ----- Рендеринг страниц
     renderMainPage() {
         const blogsHTML = this.blogs.map(blog => {
             const date = new Date(blog.date).toLocaleDateString('ru-RU', {
@@ -126,6 +126,8 @@ class BlogRouter {
                 month: 'long',
                 year: 'numeric'
             });
+
+            const urlImage = `${BASE_PATH}/${blog.imagePreview}`
             
             return `
             <article class="blog-card">
@@ -171,7 +173,7 @@ class BlogRouter {
             return;
         }
 
-    const date = new Date(blog.date).toLocaleDateString('ru-RU', {
+        const date = new Date(blog.date).toLocaleDateString('ru-RU', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
@@ -208,37 +210,20 @@ class BlogRouter {
             </div>
         `;
     }
+
+
+
+    // ----- Дополнительные функции 
+    scrollToElement(elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
 }
 
-const router = new BlogRouter();
-
-
-// Функция для проверки путей
-function checkPaths() {
-    console.log('🔍 ПРОВЕРКА ПУТЕЙ:');
-    console.log('Текущий URL:', window.location.href);
-    console.log('Pathname:', window.location.pathname);
-    
-    // Проверяем CSS
-    const cssFiles = document.querySelectorAll('link[rel="stylesheet"]');
-    console.log('\n📁 CSS файлы:');
-    cssFiles.forEach((css, i) => {
-        console.log(`${i+1}. ${css.href} - ${css.href ? '✅' : '❌'}`);
-    });
-    
-    // Проверяем JS
-    const jsFiles = document.querySelectorAll('script[src]');
-    console.log('\n📁 JS файлы:');
-    jsFiles.forEach((js, i) => {
-        console.log(`${i+1}. ${js.src} - ${js.src ? '✅' : '❌'}`);
-    });
-    
-    // Проверяем, загрузился ли JSON
-    fetch('data/blogs.json')
-        .then(r => r.json())
-        .then(data => console.log('\n✅ JSON загружен:', data.blogs.length, 'блогов'))
-        .catch(e => console.log('\n❌ JSON не загружен:', e));
-}
-
-// Запускаем проверку
-checkPaths();
+document.addEventListener('DOMContentLoaded', () => { window.router = new BlogRouter(); });

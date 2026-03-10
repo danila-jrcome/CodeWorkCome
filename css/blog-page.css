@@ -1,14 +1,10 @@
+/* Стили для страницы с постом/блогом/статьи */
 :root {
     --text-darker: #789da7;
 }
 
-#content {
-    transition: opacity 0.1s ease-in-out;
-    opacity: 1;
-}
-
-#content.fade-out {
-    opacity: 0;
+h1 {
+    text-align: center;
 }
 
 .container-blog {
@@ -24,16 +20,7 @@
     width: 1000px;
     animation: fadeInUp 0.1s ease-out;
 }
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+
 
 
 
@@ -105,7 +92,7 @@
 }
 
 .blog-page img {
-    width: max(min(450px, 100%), 60%);
+    width: clamp(450px, 100%, 50%);
     margin-left: auto;
     margin-right: auto;
 
