@@ -10,10 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 
     <!-- Подключение сторонних файлов -->
-    <base href="/CodeWorkCome/">
+    <script>
+        (function() {
+            const base = window.location.pathname.includes('/CodeWorkCome/') 
+                ? '/CodeWorkCome' 
+                : '';
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = base + '/style.css';
+            document.head.appendChild(link);
+        })();
+    </script>
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/blog-page.css">
+    <noscript>
+        <link rel="stylesheet" href="/CodeWorkCome/css/style.css">
+        <link rel="stylesheet" href="/CodeWorkCome/css/blog-page.css">
+    </noscript>
 
     <base href="/">
 </head>
@@ -31,6 +43,6 @@
 
 
     <!-- Подключение скрипта -->
-    <script src="js/script.js"></script>
+    <script src="/CodeWorkCome/js/script.js"></script>
 </body>
 </html>
