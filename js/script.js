@@ -167,3 +167,34 @@ class BlogRouter {
 }
 
 const router = new BlogRouter();
+
+
+// Функция для проверки путей
+function checkPaths() {
+    console.log('🔍 ПРОВЕРКА ПУТЕЙ:');
+    console.log('Текущий URL:', window.location.href);
+    console.log('Pathname:', window.location.pathname);
+    
+    // Проверяем CSS
+    const cssFiles = document.querySelectorAll('link[rel="stylesheet"]');
+    console.log('\n📁 CSS файлы:');
+    cssFiles.forEach((css, i) => {
+        console.log(`${i+1}. ${css.href} - ${css.href ? '✅' : '❌'}`);
+    });
+    
+    // Проверяем JS
+    const jsFiles = document.querySelectorAll('script[src]');
+    console.log('\n📁 JS файлы:');
+    jsFiles.forEach((js, i) => {
+        console.log(`${i+1}. ${js.src} - ${js.src ? '✅' : '❌'}`);
+    });
+    
+    // Проверяем, загрузился ли JSON
+    fetch('data/blogs.json')
+        .then(r => r.json())
+        .then(data => console.log('\n✅ JSON загружен:', data.blogs.length, 'блогов'))
+        .catch(e => console.log('\n❌ JSON не загружен:', e));
+}
+
+// Запускаем проверку
+checkPaths();
