@@ -44,6 +44,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    font-size: 18px;
 }
 
 .back-button {
@@ -53,7 +55,7 @@
 
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
 
     background-color: var(--primary);
     color: var(--main-text);
@@ -103,13 +105,29 @@
 }
 
 .blog-page img {
-    width: max(450px, 60%);
+    width: max(min(450px, 100%), 60%);
     margin-left: auto;
     margin-right: auto;
 
     border-radius: 16px;
     border: 2px solid #505050;
 }
+
+@media (max-width: 768px) {
+    .container-upper {
+        font-size: 0.8rem;
+    }
+
+    .back-button {
+        font-size: 0.8rem;
+    }
+
+    .blog-page {
+        font-size: 0.8rem;
+        gap: 18px;  
+    }
+}
+
 
 /* Содержимое поста */
 .blog-content {
