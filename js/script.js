@@ -1,3 +1,14 @@
+const getBasePath = () => {
+    if (window.location.pathname.includes('/CodeWorkCome/')) {
+        return '/CodeWorkCome';
+    }
+    return '';
+};
+
+const BASE_PATH = getBasePath();
+console.log('✅ Базовый путь:', BASE_PATH || 'Корень сайта');
+
+
 // Простой SPA роутер для блогов
 class BlogRouter {
     constructor() {
@@ -17,13 +28,46 @@ class BlogRouter {
 
     async loadBlogs() {
         try {
-            const response = await fetch('data/blogs.json');
+            // НОВОЕ: правильно формируем путь к JSON
+            let jsonPath;
+            
+            if (BASE_PATH) {
+                // Если мы в подпапке CodeWorkCome
+                jsonPath = `${BASE_PATH}/data/blogs.json`;
+            } else {
+                // Если в корне
+                jsonPath = 'data/blogs.json';
+            }
+            
+            console.log('📥 Загрузка JSON по пути:', jsonPath); // НОВОЕ: отладка
+            
+            const response = await fetch(jsonPath);
+            
+            // НОВОЕ: проверка статуса ответа
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
+            console.log('✅ JSON загружен, блогов:', data.blogs.length); // НОВОЕ: отладка
+            
             this.blogs = data.blogs;
-            console.log('✅ Блоги загружены:', this.blogs);
+            this.handleRoute();
+            
         } catch (error) {
-            console.error('❌ Ошибка загрузки блогов:', error);
-            this.blogs = [];
+            console.error('❌ Ошибка загрузки JSON:', error);
+            
+            // НОВОЕ: альтернативный путь на случай ошибки
+            try {
+                console.log('🔄 Пробуем альтернативный путь...');
+                const response = await fetch('/CodeWorkCome/data/blogs.json');
+                const data = await response.json();
+                this.blogs = data.blogs;
+                this.handleRoute();
+            } catch (e) {
+                console.error('❌ Альтернативный путь тоже не работает:', e);
+                this.showError(); // НОВОЕ: показываем ошибку пользователю
+            }
         }
     }
 
