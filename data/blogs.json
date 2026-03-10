@@ -2,7 +2,7 @@
   "blogs": [
     {
       "id": 1,
-      "imagePreview": "images/СистемаМеню_часть3_1.png",
+      "imagePreview": "/CodeWorkCome/images/СистемаМеню_часть3_1.png",
       "title": "GameMaker Studio 2<br>для начинающих",
       "description": "Поэтапно ознакомимся с движком, разберёмся в интерфейсе, сделаем демо игру при помощи кода",
       "tags": ["Python", "Django", "Backend", "API"],
@@ -14,7 +14,7 @@
     },
     {
       "id": 2,
-      "imagePreview": "images/СистемаМеню_часть1.png",
+      "imagePreview": "/CodeWorkCome/images/СистемаМеню_часть1.png",
       "title": "Как создать любое меню",
       "description": "Сделаем систему меню при помощи Array.<br>Такое меню будет легко изменять и расширять.",
       "tags": ["JavaScript", "React", "Node.js", "TypeScript"],
@@ -25,7 +25,7 @@
     },
     {
       "id": 3,
-      "imagePreview": "images/СистемаМеню_часть3_1.png",
+      "imagePreview": "/CodeWorkCome/images/СистемаМеню_часть3_1.png",
       "title": "DevOps практики",
       "description": "Docker, Kubernetes, CI/CD, облачные технологии. Как построить современную инфраструктуру.",
       "tags": ["DevOps", "Docker", "Kubernetes", "AWS"],
@@ -36,7 +36,7 @@
     },
     {
       "id": 4,
-      "imagePreview": "images/СистемаМеню_часть3_1.png",
+      "imagePreview": "/CodeWorkCome/images/СистемаМеню_часть3_1.png",
       "title": "Алгоритмы и структуры данных",
       "description": "Разбор задач, LeetCode, интервью, сложные алгоритмы. Подготовка к собеседованиям.",
       "tags": ["Алгоритмы", "LeetCode", "BigO", "Собеседование"],
