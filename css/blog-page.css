@@ -1,6 +1,7 @@
 /* Стили для страницы с постом/блогом/статьи */
 :root {
-    --text-darker: #789da7;
+    --text-darker:#789da7;
+    --border:       #505050
 }
 
 h1 {
@@ -97,7 +98,7 @@ h1 {
     margin-right: auto;
 
     border-radius: 16px;
-    border: 2px solid #505050;
+    border: 2px solid var(--border);
 }
 
 @media (max-width: 768px) {
@@ -124,4 +125,20 @@ h1 {
     flex-direction: column;
     flex-wrap: wrap;
     gap: 24px;   
+}
+
+pre {
+    border-radius: 12px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+code {
+    font-family: 'Consolas', 'Courier New';
+    font-size: 14px;
+    line-height: 1.5;
 }

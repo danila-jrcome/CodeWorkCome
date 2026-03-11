@@ -165,13 +165,35 @@ class BlogRouter {
         `;
     }
 
-    renderBlogPage(id) {
+    // Подсветка кода
+    highlightCode() {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    }
+
+    async loadBlogContent(contentFile) {
+        try {
+            const response = await fetch(`data/${contentFile}`);
+            const content = await response.text();
+            
+            // Просто возвращаем текст, Live Server не будет ругаться
+            return content;
+        } catch (error) {
+            console.error('Ошибка загрузки контента:', error);
+            return 'Ошибка загрузки контента';
+        }
+    }
+
+    async renderBlogPage(id) {
         const blog = this.blogs.find(b => b.id === id);
         
         if (!blog) {
             this.renderNotFound();
             return;
         }
+
+        const blogContent = await this.loadBlogContent(blog.content);
 
         const date = new Date(blog.date).toLocaleDateString('ru-RU', {
             day: 'numeric',
@@ -194,11 +216,13 @@ class BlogRouter {
                         <h1>${blog.title}</h1>
                     </div>
                     <div class="blog-content">
-                        ${blog.content}
+                        ${blogContent}
                     </div>
                 </div>
             </div>
         `;
+
+        this.highlightCode(); // Подсветка кода
     }
 
     renderNotFound() {

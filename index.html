@@ -18,20 +18,18 @@
             --shadow:       #1f0942;
             --main-text:    #F3F4F4;
             --card-bg:      #1d1d1d;
+
+            --second-dark: rgb(43, 55, 73);
         }
 
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: 'Nunito', sans-serif;
 
             background: var(--background);
             color: var(--main-text);
-        }
-        #app {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+            font-family: 'Nunito', sans-serif;
         }
         
         /* Обнуление отступов */
@@ -99,6 +97,8 @@
             });
         })();
     </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
 <body>
     <!-- Шапка -->
@@ -114,8 +114,8 @@
 
 
     <!-- Подключение скрипта JS -->
-    <script>
-        document.write(`<script src="${window.APP_BASE_PATH}/js/script.js"><\/script>`)
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gml.min.js"></script>
+    <script>document.write(`<script src="${window.APP_BASE_PATH}/js/script.js"><\/script>`)</script>
 </body>
 </html>

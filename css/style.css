@@ -1,13 +1,3 @@
-:root {
-    /* Colors */
-    --background:   #2C2C2C;
-    --primary:      #355872;
-    --second:       #7acece;
-    --shadow:       #1f0942;
-    --main-text:    #F3F4F4;
-    --card-bg:      #1d1d1d;
-}
-
 html { overflow-y: scroll; scroll-behavior: smooth;}
 
 a { text-decoration: none; }

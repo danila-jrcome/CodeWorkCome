@@ -1,0 +1,39 @@
+<body>
+</body>
+Данная статья подойдет тем, кто хочет плавно вкатится в движок GameMaker. Данная статья подойдет тем, кто хочет плавно вкатится в движок GameMaker. 
+<pre><code class="language-gml">// Числовые переменные
+health = 100;
+speed = 4.5;
+
+// Строковые переменные
+player_name = 'Арчибальд';
+
+// Булевы значения (true = 1, false = 0)
+is_alive = true;
+has_key = false;
+
+// Массивы
+inventory[0] = 'зелье';
+inventory[1] = 'меч';
+</code></pre>
+
+<h2>Цикл for</h2>
+<p>Обратите внимание на синтаксис — условия разделяются точкой с запятой, но скобки для тела цикла можно не ставить, если действие одно [citation:5].</p>
+
+<pre><code class="language-gml">// Создаем 10 врагов
+for (var i = 0; i < 10; i += 1) 
+{
+    instance_create_layer(100 + i*50, 100, 'Instances', obj_enemy);
+}
+</code></pre>
+
+<h2>Условия if</h2>
+<p>Забавная особенность GML — можно использовать и один, и два знака равенства [citation:5].</p>
+
+<pre><code class="language-gml">// Один знак '=' тоже работает для сравнения!
+if (health = 0) 
+{
+    show_debug_message('Игрок мертв');
+    instance_destroy();
+}
+</code></pre>
