@@ -5,6 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeWorkCome</title>
 
+    <!-- Подключение шрифтов -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+    <!-- Скрываем контент до загрузки -->
+    <style>
+        :root {
+            /* Colors */
+            --background:   #2C2C2C;
+            --primary:      #355872;
+            --second:       #7acece;
+            --shadow:       #1f0942;
+            --main-text:    #F3F4F4;
+            --card-bg:      #1d1d1d;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif;
+
+            background: var(--background);
+            color: var(--main-text);
+        }
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Обнуление отступов */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            flex-direction: row;
+            flex-wrap:  wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+            gap: 12px;
+            column-gap: 32px;
+
+            background-color: var(--card-bg);
+
+            box-shadow: 0 -5px 10px inset rgba(0, 0, 0, 0.1);
+        }
+
+        header h1{
+            color: var(--main-text);
+        }
+
+        /* Header Description */
+        .head-desc {
+            padding: 4px 20px;
+            border-radius: 30px;
+            background: linear-gradient(to right, var(--primary), #338f8f);
+            box-shadow: 0 8px 8px rgba(0,0,0,0.1);
+            
+            width: fit-content
+        }
+    </style>
+
     <!-- Определение базового пути + Подключение стилей CSS -->
     <script>
         (function() {
@@ -32,10 +99,6 @@
             });
         })();
     </script>
-    
-    <!-- Подключение шрифтов -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <!-- Шапка -->

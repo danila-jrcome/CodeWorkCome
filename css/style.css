@@ -10,16 +10,11 @@
 
 html { overflow-y: scroll; scroll-behavior: smooth;}
 
-
-
-/* Обнуление отступов */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 a { text-decoration: none; }
+
+h1 {
+    color: var(--main-text);
+}
 
 body {
     background: var(--background); 
@@ -27,44 +22,7 @@ body {
     background-repeat: repeat;
     background-size: 90px 90px;
 
-    font-family: 'Nunito', sans-serif;
     color: var(--main-text);
-}
-
-h1 {
-    color: var(--main-text);
-}
-
-
-
-/* Header */
-header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap:  wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 18px;
-    gap: 12px;
-    column-gap: 32px;
-
-    background-color: var(--card-bg);
-
-    box-shadow: 0 -5px 10px inset rgba(0, 0, 0, 0.1);
-}
-
-header h1{
-    color: var(--main-text);
-}
-
-/* Header Description */
-.head-desc {
-    padding: 4px 20px;
-    border-radius: 30px;
-    background: linear-gradient(to right, var(--primary), #338f8f);
-    box-shadow: 0 8px 8px rgba(0,0,0,0.1);
-    
-    width: fit-content
 }
 
 
@@ -196,6 +154,7 @@ main {
     justify-content:center;
     width: 100%;
 }
+
 
 .blog-image {
     width: 100%;
