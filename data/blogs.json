@@ -3,7 +3,7 @@
     {
       "id": 1,
       "imagePreview": "images/СистемаМеню_часть3_1.png",
-      "title": "GameMaker Studio 2<br>для начинающих",
+      "title": "GameMaker Studio 2 для начинающих",
       "description": "Поэтапно ознакомимся с движком, разберёмся в интерфейсе, сделаем демо игру при помощи кода",
       "tags": ["Python", "Django", "Backend", "API"],
       "slug": "gamemaker-for-begginer",

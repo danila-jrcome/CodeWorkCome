@@ -8,6 +8,9 @@
     <!-- Подключение шрифтов -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 
+    <!-- Подключение иконок -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
     <!-- Скрываем контент до загрузки -->
     <style>
         :root {
@@ -16,10 +19,15 @@
             --primary:      #355872;
             --second:       #7acece;
             --shadow:       #1f0942;
-            --main-text:    #F3F4F4;
-            --card-bg:      #1d1d1d;
 
-            --second-dark: rgb(43, 55, 73);
+            --card-bg:      #1d1d1d;
+            --col-bor:      #505050;
+
+            --main-text:    #F3F4F4;
+            --text-gray:    #d2d8e7;
+
+
+            --second-dark:  rgb(116, 116, 116);
         }
 
         body {
@@ -67,6 +75,20 @@
             box-shadow: 0 8px 8px rgba(0,0,0,0.1);
             
             width: fit-content
+        }
+
+        @media (min-width: 0px) 
+        {
+            header {
+                flex-direction: column;
+                font-size: clamp(10px, 2vw, 32px);
+            }
+        }
+        @media (min-width: 850px) {
+            header {
+                flex-direction: row;
+                font-size: 1rem;
+            }
         }
     </style>
 

@@ -140,14 +140,10 @@ class BlogRouter {
                 </div>
                 <div class="blog-card__additional">
                     <div class="blog-card__meta">
-                        <span class="blog-card__read-time">
-                            <i class="far fa-clock"></i> ${date}
-                        </span>
+                        ${date}
                     </div>
                     <a class="blog-card__button" target="_blank" onclick="router.navigate('/blog/${blog.id}')">
-                        Читать
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                        Читать <i class="fa-solid fa-angle-right"></i></a>
                 </div>
             </article>
         `}).join('');
@@ -176,8 +172,6 @@ class BlogRouter {
         try {
             const response = await fetch(`data/${contentFile}`);
             const content = await response.text();
-            
-            // Просто возвращаем текст, Live Server не будет ругаться
             return content;
         } catch (error) {
             console.error('Ошибка загрузки контента:', error);
@@ -204,9 +198,9 @@ class BlogRouter {
         this.content.innerHTML = `
             <div class="container-blog">
                 <div class="container-upper">
-                    <button class="back-button" onclick="router.navigate('/')">← Назад к списку</button>
+                    <button class="back-button" onclick="router.navigate('/')"><i class="fa-solid fa-arrow-left"></i> Назад к списку</button>
                     <div class="blog-meta">
-                        <span>📅 ${date}</span>
+                        <span><i class="fa-regular fa-calendar"></i> ${date}</span>
                     </div>
                 </div>
 
@@ -216,7 +210,7 @@ class BlogRouter {
                         <h1>${blog.title}</h1>
                     </div>
                     <div class="blog-content">
-                        ${blogContent}
+                        ${this.prepareCodeBlocks(blogContent)}
                     </div>
                 </div>
             </div>
@@ -237,7 +231,8 @@ class BlogRouter {
 
 
 
-    // ----- Дополнительные функции 
+    ///// ----- Дополнительные функции 
+    // Плавный скроллинг
     scrollToElement(elementId) {
         const element = document.getElementById(elementId);
         if (element) {
@@ -246,6 +241,49 @@ class BlogRouter {
                 block: 'start'
             });
         }
+    }
+
+    // Подготовка блоков кода
+    prepareCodeBlocks(content) {
+        return content.replace(
+            /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/gs,
+            (match, language, code) => {
+                const encodedCode = btoa(unescape(encodeURIComponent(code)));
+
+                return `
+                    <div class="code-block-wrapper" data-code-base64="${encodedCode}">
+                        <pre><code class="${language}">${code}</code></pre>
+                        <button class="copy-code-btn" onclick="router.copyCode(this)">
+                        <i class="fa-regular fa-clipboard"></i> Скопировать код</button>
+                    </div>
+                `;
+            }
+        );
+    }
+
+    // Экранирования HTML
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Копирование кода
+    copyCode(button) {
+        const wrapper = button.closest('.code-block-wrapper');
+        const encodedCode = wrapper.dataset.codeBase64;
+        const decodedCode = decodeURIComponent(escape(atob(encodedCode)))
+        
+        // Копируем в буфер обмена
+        navigator.clipboard.writeText(decodedCode).then(() => {
+            const originalHTML = button.innerHTML;
+
+            button.innerHTML = '<i class="fa-solid fa-clipboard-check"></i> Скопировано в буфер обмена!';
+            setTimeout(() => { button.innerHTML = originalHTML; }, 2500);
+        }).catch(err => {
+            console.error('Ошибка копирования:', err);
+            alert('Не удалось скопировать код');
+        });
     }
 
 }

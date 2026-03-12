@@ -1,7 +1,7 @@
 /* Стили для страницы с постом/блогом/статьи */
 :root {
     --text-darker:#789da7;
-    --border:       #505050
+    --border:       #505050;
 }
 
 h1 {
@@ -40,6 +40,7 @@ h1 {
     border: none;
     padding: 8px 16px;
     border-radius: 8px;
+    align-items: center;
 
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
@@ -64,6 +65,7 @@ h1 {
     text-align: center;
     display: flex;
     align-items: center;
+    font-weight: 600;
 
     background-color: var(--card-bg);
     color: var(--text-darker);
@@ -101,7 +103,7 @@ h1 {
     border: 2px solid var(--border);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .container-upper {
         font-size: 0.8rem;
     }
@@ -119,19 +121,27 @@ h1 {
 
 /* Содержимое поста */
 .blog-content {
-    /* padding: 0 24px; */
-
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 24px;   
 }
 
+
+/* Блок с кодом */
+.code-block-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 8px;
+}
+
 pre {
-    border-radius: 12px;
     overflow-x: auto;
     white-space: pre-wrap;
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
 
     border: 2px solid var(--border);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -141,4 +151,20 @@ code {
     font-family: 'Consolas', 'Courier New';
     font-size: 14px;
     line-height: 1.5;
+}
+
+/* Кнопка копирования */
+.copy-code-btn {
+    width: 100%;
+    padding: 4px 12px;
+    border-radius: 0 0 8px 8px;
+
+    border-style: none;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--border);
+    text-align: left;
+    cursor: pointer;
 }

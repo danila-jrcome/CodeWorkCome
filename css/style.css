@@ -43,23 +43,26 @@ main {
 
 @media (min-width: 0px) 
 {
-    header {
-        flex-direction: column;
-        font-size: clamp(10px, 2vw, 32px);
+    .section-title {
+        font-size: 1.5rem;
     }
-
     .blog-grid {
         grid-template-columns: repeat(1, minmax(200px, 500px));
     }
-}
-@media (min-width: 850px) {
-    header {
-        flex-direction: row;
-        font-size: 1rem;
+    .blog-card__content {
+        font-size: 0.85rem;
     }
 
+}
+@media (min-width: 850px) {
+    .section-title {
+        font-size: 2rem;
+    }
     .blog-grid {
         grid-template-columns: repeat(2, minmax(400px, 500px));
+    }
+    .blog-card__content {
+        font-size: 1rem;
     }
 }
 @media (min-width: 1400px) {
@@ -67,6 +70,7 @@ main {
         grid-template-columns: repeat(3, minmax(400px, 400px));
         justify-content: center;  /* Центрируем, если осталось место */
     }
+
 }
 
 
@@ -96,6 +100,23 @@ main {
 }
 
 
+.blog-card__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+
+.blog-image {    
+    width: 100%;
+    height: auto;
+
+    border-radius: 16px;
+    border: 1px solid #505050;
+}
+
 .blog-card__title {
     text-align: center;
 } 
@@ -108,8 +129,7 @@ main {
 }
 
 .blog-card__additional {
-    border-top: 1px solid var(--border);
-    margin-top: auto;  /* Прижимает футер к низу */
+    margin-top: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -122,12 +142,13 @@ main {
     border: 0;
     padding: 8px 24px;
     border-radius: 8px;
+    align-items: center;
 
-    font-weight:bold;
+    font-weight: 700;
     cursor: pointer;
 
     background-color: var(--primary);
-    color: var(--main-text);
+    color: var(--text-gray);
 
     transition: background-color 0.15s, color 0.15s;
 
@@ -137,20 +158,4 @@ main {
 .blog-card__button:hover{
     background-color: var(--second);
     color: var(--card-bg);
-}
-
-.blog-card__image {
-    display: block;
-    justify-content:center;
-    width: 100%;
-}
-
-
-.blog-image {
-    width: 100%;
-    height: auto;
-    
-    
-    border-radius: 16px;
-    border: 1px solid #505050;
 }
