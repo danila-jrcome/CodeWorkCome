@@ -167,4 +167,10 @@ code {
     color: var(--border);
     text-align: left;
     cursor: pointer;
+    
+    transition: color 0.35s;
+}
+
+.copy-code-btn:hover {
+    color: var(--gml-function);
 }

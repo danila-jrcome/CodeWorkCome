@@ -1,0 +1,71 @@
+pre code.hljs {
+    background: #1E1E1E;
+    color: #C0C0C0;       /* Текст по умолчанию */
+}
+
+.hljs-keyword {
+    color: #FFB871;
+}
+
+/* Числа, значения, константы */
+.hljs-number,
+.hljs-literal,
+.hljs-constant {
+    color: #FF8080 !important;
+}
+
+.hljs-string {
+    color: #FFFF00 !important;
+}
+
+.hljs-comment {
+    color: #5B995B !important;
+    font-style: italic;
+}
+
+.hljs-built_in {
+    color: #FFB871 !important;
+}
+
+.hljs-variable.language_,
+.hljs-property,
+.hljs-attr {
+    color: #B2B1FF !important;
+}
+
+.hljs-keyword,
+.hljs-function,
+.hljs-title.function_ {
+    color: #FFB871 !important;
+}
+
+.hljs-variable {
+    color: #FFF899 !important;
+}
+
+.hljs-variable.global_ {
+    color: #FF7EFF !important;
+}
+
+/* Макросы */
+.hljs-symbol,
+.hljs-meta {
+    color: #FF5B5B !important;       /* Ярко-красный */
+}
+
+/* Номера строк (если включены) */
+.hljs-ln-numbers {
+    color: #40C3F4 !important;       /* Голубой */
+}
+
+/* Имена ресурсов (объекты, спрайты) */
+.hljs-title.class_,
+.hljs-title.type_ {
+    color: #FF8080 !important;       /* Розовый */
+}
+
+
+/* СВОИ ЦВЕТА */
+.gml-function {
+    color: red;
+}

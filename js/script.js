@@ -275,15 +275,19 @@ class BlogRouter {
         const decodedCode = decodeURIComponent(escape(atob(encodedCode)))
         
         // Копируем в буфер обмена
-        navigator.clipboard.writeText(decodedCode).then(() => {
-            const originalHTML = button.innerHTML;
+        if (button.disabled == false)
+        {
+            navigator.clipboard.writeText(decodedCode).then(() => {
+                const originalHTML = button.innerHTML;
+                button.disabled = true;
 
-            button.innerHTML = '<i class="fa-solid fa-clipboard-check"></i> Скопировано в буфер обмена!';
-            setTimeout(() => { button.innerHTML = originalHTML; }, 2500);
-        }).catch(err => {
-            console.error('Ошибка копирования:', err);
-            alert('Не удалось скопировать код');
-        });
+                button.innerHTML = '<i class="fa-solid fa-clipboard-check"></i> Скопировано в буфер обмена!';
+                setTimeout(() => { button.innerHTML = originalHTML; button.disabled = false; }, 2300);
+            }).catch(err => {
+                console.error('Ошибка копирования:', err);
+                alert('Не удалось скопировать код');
+            });
+        }
     }
 
 }
