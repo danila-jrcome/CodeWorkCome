@@ -168,7 +168,7 @@ code {
     text-align: left;
     cursor: pointer;
     
-    transition: color 0.35s;
+    transition: color 0.25s;
 }
 
 .copy-code-btn:hover {
