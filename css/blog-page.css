@@ -149,20 +149,44 @@ pre {
     scrollbar-color: var(--gml-variable) #2d2d2d;
 }
 
+code {
+    border-radius: 8px 8px 0 0;
+    font-family: 'Consolas', 'Courier New';
+    line-height: 1.5;
+}
 @media (max-width: 850px) {
     code {
         font-size: 10px;
     }
 }
 
-code {
-    border-radius: 8px 8px 0 0;
-    font-family: 'Consolas', 'Courier New';
-    line-height: 1.5;
+/* Icon's gml */
+.object-data {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.data-container p {
+    font-size: 100%;
+}
+
+.data-container img {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: auto;
+    height: 24px;
 }
 
 
-/* Кнопка копирования */
+/* Copy button */
 .copy-code-btn {
     width: 100%;
     padding: 4px 12px;
