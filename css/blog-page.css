@@ -218,6 +218,6 @@ code {
     transition: color 0.25s;
 }
 
-.copy-code-btn:hover {
+.code-block-copy-btn:hover {
     color: var(--gml-function);
 }
