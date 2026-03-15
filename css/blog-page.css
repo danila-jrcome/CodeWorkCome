@@ -103,20 +103,39 @@ h1 {
     border: 2px solid var(--border);
 }
 
-@media (max-width: 850px) {
+@media (max-width: 850px)
+{
     .container-upper {
         font-size: 0.8rem;
     }
-
     .back-button {
         font-size: 0.8rem;
     }
-
     .blog-page {
         font-size: 0.8rem;
         gap: 18px;  
     }
 }
+
+@media (min-width: 0px) {
+
+    .code-block-metadata {
+        height: 1.7rem
+    }
+    .data-container p {
+        font-size: 0.6rem;
+    }
+}
+@media (min-width: 850px) {
+    .code-block-metadata {
+        height: 2.2rem
+    }
+    .data-container p {
+        font-size: 0.8rem;
+    }
+}
+
+
 
 
 /* Содержимое поста */
@@ -187,16 +206,12 @@ code {
     opacity: 1;
 }
 
-.data-container p {
-    font-size: 100%;
-}
-
 .data-container img {
     margin: 0;
     border: none;
     border-radius: 0;
     width: auto;
-    height: 16px;
+    height: 100%;
 }
 
 

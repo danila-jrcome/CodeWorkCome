@@ -4,6 +4,12 @@ h1 {
     color: var(--main-text);
 }
 
+body {
+    background: var(--background); 
+    background-image: url('../images-system/gamemaker-logo.svg');
+    background-repeat: repeat;
+    background-size: 90px 90px;
+}
 
 /* Контент занимает все доступное место */
 #content {
