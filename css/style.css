@@ -1,20 +1,21 @@
-html { overflow-y: scroll; scroll-behavior: smooth;}
-
 a { text-decoration: none; }
 
 h1 {
     color: var(--main-text);
 }
 
-body {
-    background: var(--background); 
-    background-image: url('../images-system/gamemaker-logo.svg');
-    background-repeat: repeat;
-    background-size: 90px 90px;
 
-    color: var(--main-text);
+/* Контент занимает все доступное место */
+#content {
+    flex: 1 0 auto;
+    margin-bottom: 50px;
 }
 
+
+.blogs-containter {
+    display: flex;
+    flex-direction: column;
+}
 
 
 /* Blog Section & Grid */
@@ -24,9 +25,15 @@ main {
     align-items: center;
 }
 
+.blogs-containter {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
 .container {
     min-width: 70%;
-    margin-bottom: 80px;
+    /* margin-bottom: 80px; */
 }
 
 .blog-grid {
@@ -52,7 +59,12 @@ main {
     .blog-card__content {
         font-size: 0.85rem;
     }
-
+    .social-links p {
+        font-size: 0.5rem;
+    }
+    h2 {
+        font-size: 1rem;
+    }
 }
 @media (min-width: 850px) {
     .section-title {
@@ -63,6 +75,12 @@ main {
     }
     .blog-card__content {
         font-size: 1rem;
+    }
+    .social-links p {
+        font-size: 16px;
+    }
+    h2 {
+        font-size: 1.5rem;
     }
 }
 @media (min-width: 1400px) {
@@ -158,4 +176,71 @@ main {
 .blog-card__button:hover{
     background-color: var(--second);
     color: var(--card-bg);
+}
+
+
+/* 404 not find page */
+.not-found {
+    padding: 32px;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    background-color: var(--card-bg);
+}
+
+/* About me */
+.about-me {
+    min-width: 60%;
+    max-width: 80%;
+    padding: 32px;
+    border-radius: 16px;
+    background-color: var(--card-bg);
+    margin-left: auto;
+    margin-right: auto;
+
+    display:  flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    color: gray;
+}
+
+.about-me h2 {
+    margin-bottom: 12px;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--main-text);
+
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+
+.social-links img {
+    text-decoration: none;
+
+    transition: ease color 0.15s;
+    height: 48px;
+    opacity: 0.6;
+}
+
+.social-links:hover {
+    opacity: 1;
 }

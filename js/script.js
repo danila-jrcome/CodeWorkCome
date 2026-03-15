@@ -11,6 +11,7 @@ class BlogRouter {
     
         this.basePath = BASE_PATH;
 
+        this.footer = document.querySelector('footer');
         window.addEventListener('hashchange', () => this.handleRoute());
         this.isTransitioning = false;
         this.init();
@@ -36,6 +37,9 @@ class BlogRouter {
             console.log('✅ JSON загружен, блогов:', data.blogs.length);
             
             this.blogs = data.blogs;
+
+            if (this.footer) { this.footer.style.opacity = '1'; }
+
             this.handleRoute();
             
         } catch (error) {
@@ -71,17 +75,14 @@ class BlogRouter {
         
         this.isTransitioning = true;
         
-        // 1. Скрываем текущий контент
         this.content.style.opacity = '0';
         this.content.style.transform = 'translateY(10px)';
         this.content.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
         
-        // 2. Ждем завершения анимации скрытия
         await new Promise(resolve => {
             this.transitionTimeout = setTimeout(resolve, 150);
         });
         
-        // 3. Рендерим новый контент (он будет невидимым)
         if (hash === '/') {
             this.renderMainPage();
         } else if (hash.startsWith('/blog/')) {
@@ -91,16 +92,12 @@ class BlogRouter {
             this.renderNotFound();
         }
         
-        // 4. Прокручиваем страницу вверх (пока контент невидим)
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
         
-        // 5. Даем время на прокрутку
         await new Promise(resolve => setTimeout(resolve, 100));
-        
-        // 6. Плавно показываем новый контент
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 this.content.style.opacity = '1';
@@ -149,16 +146,39 @@ class BlogRouter {
         `}).join('');
 
         this.content.innerHTML = `
+        <div class="blogs-containter">
             <div class="container">
                 <!-- Титульник -->
-                <div class="section-header">
-                    <h1 class="section-title">Блоги</h1>
-                </div>
+                <div class="section-header"><h1 class="section-title">Обучающий материал</h1></div>
 
                 <!-- Контент -->
                 <div class="blog-grid"> ${blogsHTML} </div>
             </div>
-        `;
+
+            <!--
+            <div class="container">
+                <div class="section-header"><h1 class="section-title">Многосерийные курсы</h1></div>
+            </div>
+
+            <div class="container">
+                <div class="section-header"><h1 class="section-title">Другой полезный материал </h1></div>
+            </div>
+            -->
+
+            
+            <div class="about-me">
+                <h2>Так же рассмотрите другие ссылки на меня</h1>
+                <a class="social-links" href="https://www.youtube.com/@danila_commit" target="_blank" rel="noopener noreferrer">
+                    <img src="images-system/youtube-logo-white.png" style="height: 48px;" alt="Youtube">
+                    <p>Ютуб канал с обучающими видеороликами</p>
+                </a>
+                <a class="social-links" href="https://boosty.to/danila_commit" target="_blank" rel="noopener noreferrer">
+                    <img src="images-system/boosty-logo-white.svg" style="height: 48px;" alt="Boosty">
+                    <p>Бусти, если желаете материально поддержать</p>
+                </a>
+            </div>
+        </div>
+            `;
     }
 
     // Подсветка кода

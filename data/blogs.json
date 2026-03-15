@@ -18,10 +18,12 @@
       "title": "Как создать любое меню",
       "description": "Сделаем систему меню при помощи Array.<br>Такое меню будет легко изменять и расширять.",
       "tags": ["JavaScript", "React", "Node.js", "TypeScript"],
-      "slug": "https://example.com/js-blog",
+      "slug": "gamemaker-for-begginer",
       "date": "2026-03-10",
       "readTime": "7 мин",
-      "complexity": 0
+      "complexity": 0,
+      "content": "content/empty.html"
+
     },
     {
       "id": 3,
@@ -29,10 +31,11 @@
       "title": "DevOps практики",
       "description": "Docker, Kubernetes, CI/CD, облачные технологии. Как построить современную инфраструктуру.",
       "tags": ["DevOps", "Docker", "Kubernetes", "AWS"],
-      "slug": "https://example.com/devops-blog",
+      "slug": "gamemaker-for-begginer",
       "date": "2026-03-05",
       "readTime": "6 мин",
-      "complexity": 0
+      "complexity": 0,
+      "content": "content/empty.html"
     },
     {
       "id": 4,
@@ -40,10 +43,11 @@
       "title": "Алгоритмы и структуры данных",
       "description": "Разбор задач, LeetCode, интервью, сложные алгоритмы. Подготовка к собеседованиям.",
       "tags": ["Алгоритмы", "LeetCode", "BigO", "Собеседование"],
-      "slug": "https://example.com/algo-blog",
+      "slug": "gamemaker-for-begginer",
       "date": "2026-03-01",
       "readTime": "8 мин",
-      "complexity": 0
+      "complexity": 0,
+      "content": "content/empty.html"
     }
   ]
 }
