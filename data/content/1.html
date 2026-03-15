@@ -2,16 +2,6 @@
 </body>
 Данная статья подойдет тем, кто хочет плавно вкатится в движок GameMaker. 
 
-<div class="object-data">
-    <div class="data-container">
-        <img src="images-system\gml-icon\icon_object.png" alt="Объект">
-        <p>obEnemy</p>
-    </div>
-    <div class="data-container">
-        <img src="images-system\gml-icon\icon_event_step.png" alt="Объект">
-        <p>Step</p>
-    </div>
-</div>
 <pre><code class="language-gml">// Числовые переменные
 health = 100;
 speed = 4.5;
@@ -32,7 +22,7 @@ inventory[1] = "меч";
 <p>Обратите внимание на синтаксис — условия разделяются точкой с запятой, но скобки для тела цикла можно не ставить, если действие одно [citation:5].</p>
 
 
-<pre><code class="language-gml">// Object - obEnemy | Event - Step
+<pre><code class="language-gml">//Object:obEnemy, Event:Create
 // Создаем 10 врагов
 for (var i = 0; i < 10; i += 1) 
 {
@@ -44,7 +34,8 @@ for (var i = 0; i < 10; i += 1)
 <p>Забавная особенность GML — можно использовать и один, и два знака равенства [citation:5].</p>
 
 
-<pre><code class="language-gml">// Один знак '=' тоже работает для сравнения!
+<pre><code class="language-gml">//Object:obEnemy, Event:Step
+// Один знак '=' тоже работает для сравнения!
 if (health = 0) 
 {
     show_debug_message("Игрок мертв");

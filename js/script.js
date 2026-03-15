@@ -268,17 +268,77 @@ class BlogRouter {
         return content.replace(
             /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/gs,
             (match, language, code) => {
-                const encodedCode = btoa(unescape(encodeURIComponent(code)));
+                const metadata = this.parseCodeMetadata(code);
+                let cleanCode = code;
+                let objectDataHTML = '';
+                
+                if (metadata) {
+                    cleanCode = code.replace(/\/\/Object:.*?(, Event:.*?)?(\r?\n|$)/, '');
+                    objectDataHTML = this.createObjectDataHTML(metadata);
+                }
+                
+                const encodedCode = btoa(unescape(encodeURIComponent(cleanCode)));
 
                 return `
                     <div class="code-block-wrapper" data-code-base64="${encodedCode}">
-                        <pre><code class="${language}">${code}</code></pre>
-                        <button class="copy-code-btn" onclick="router.copyCode(this)">
-                        <i class="fa-regular fa-clipboard"></i> Скопировать код</button>
+                        <pre>
+                            ${objectDataHTML}
+                            <code class="${language}">${cleanCode}</code>
+                        </pre>
+
+                        <button class="code-block-copy-btn" onclick="router.copyCode(this)"><i class="fa-regular fa-clipboard"></i> Скопировать код</button>
                     </div>
                 `;
             }
         );
+    }
+    parseCodeMetadata(code) {
+        const metadataRegex = /\/\/Object:(\w+)(?:,\s*Event:(\w+))?/;
+        const match = code.match(metadataRegex);
+        if (match) {return { objectName: match[1], eventName: match[2] || null};}
+        
+        return null;
+    }
+    createObjectDataHTML(metadata) 
+    {
+        const eventIcon = metadata.eventName ? this.getEventIcon(metadata.eventName.toLowerCase()) : 'icon_event_step.png';
+        
+        return `
+            <div class="code-block-metadata">
+                <div class="data-container">
+                    <img src="images-system/gml-icon/icon_object.png" alt="Объект">
+                    <p>${metadata.objectName}</p>
+                </div>
+
+                ${metadata.eventName ? `
+                <div class="data-container">
+                    <img src="images-system/gml-icon/${eventIcon}" alt="Событие">
+                    <p>${metadata.eventName}</p>
+                </div>
+            </div>
+            ` : ''}
+        `;
+    }
+
+    getEventIcon(eventName) 
+    {
+        const eventIcons = {
+            'create': 'icon_event_create.png',
+            'step': 'icon_event_step.png',
+            'draw': 'icon_event_draw.png',
+            'destroy': 'icon_event_destroy.png',
+            'collision': 'icon_event_collision.png',
+            'alarm': 'icon_event_alarm.png',
+            'keyboard': 'icon_event_keyboard.png',
+            'mouse': 'icon_event_mouse.png',
+            'room_start': 'icon_event_room_start.png',
+            'room_end': 'icon_event_room_end.png',
+            'animation_end': 'icon_event_animation_end.png',
+            'path_end': 'icon_event_path_end.png',
+            'user': 'icon_event_user.png'
+        };
+        
+        return eventIcons[eventName.toLowerCase()] || 'icon_event_step.png';
     }
 
     // Экранирования HTML
