@@ -130,7 +130,6 @@ main {
     align-items: center;
 
     width: 100%;
-    aspect-ratio: 16 / 9;
 }
 
 .blog-card__image img {
@@ -148,6 +147,7 @@ main {
 .blog-image {    
     width: 100%;
     height: auto;
+    aspect-ratio: 16 / 9;
 
     border-radius: 16px;
     border: 1px solid #505050;
