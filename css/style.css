@@ -130,8 +130,20 @@ main {
     align-items: center;
 
     width: 100%;
+    aspect-ratio: 16 / 9;
 }
 
+.blog-card__image img {
+    transition: opacity 0.3s ease;
+}
+
+.blog-card__image img:not([src]) {
+    opacity: 0;
+}
+
+.blog-card__image img[src] {
+    opacity: 1;
+}
 
 .blog-image {    
     width: 100%;
